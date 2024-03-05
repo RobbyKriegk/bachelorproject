@@ -30,8 +30,8 @@ class _ChoosePOIButtonState extends State<ChoosePOIButton> {
         onPressed: () {
           // navigate to the POI page
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => POIButtonSite()));
+              MaterialPageRoute(builder: (context) => const POIButtonSite()));
         },
-        child: Text('Choose POI'));
+        child: const Text('Choose POI'));
   }
 }
