@@ -10,6 +10,7 @@ class PoILayer extends ConsumerStatefulWidget {
 }
 
 class _PoILayerState extends ConsumerState<PoILayer> {
+  GlobalKey key = GlobalKey();
   poiPresentation(String poiKey, bool selected) {
     return Text(poiKey,
         style: TextStyle(
@@ -19,18 +20,27 @@ class _PoILayerState extends ConsumerState<PoILayer> {
         ));
   }
 
-  // neon green as full colorcode
-  // c
+  getLocation(GlobalKey key) {
+    if (key.currentContext == null) {
+      return;
+    }
+    final RenderBox renderBoxRed =
+        key.currentContext!.findRenderObject() as RenderBox;
+    final positionRed = renderBoxRed.localToGlobal(Offset.zero);
+    print("POSITION of RED: $positionRed ");
+  }
 
   @override
   Widget build(BuildContext context) {
+    getLocation(key);
     Map<String, dynamic> poiList = ref.read(poiListProvider);
     ref.watch(switchStateProvider);
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       const SizedBox(height: 110),
       Row(
         children: [
-          const SizedBox(
+          SizedBox(
+            key: key,
             width: 170,
           ),
           poiPresentation(
