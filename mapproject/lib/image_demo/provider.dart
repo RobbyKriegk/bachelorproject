@@ -1,18 +1,35 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final StateProvider<Map<String, dynamic>> poiListProvider =
-    StateProvider<Map<String, dynamic>>((ref) {
+final poiListProvider = StateProvider<Map<String, dynamic>>((ref) {
   return <String, dynamic>{
     'list': [
-      {'key': 'poi1', 'value': 'Haupteingang', 'selected': false},
-      {'key': 'poi2', 'value': 'Empfang', 'selected': false},
-      {'key': 'poi3', 'value': 'Information', 'selected': false},
-      {'key': 'poi4', 'value': 'Atrium', 'selected': false},
-      {'key': 'poi5', 'value': 'Hörsaal', 'selected': false}
+      {
+        'key': 'poi1',
+        'value': 'Haupteingang',
+        'selected': false,
+        'offset': null
+      },
+      {'key': 'poi2', 'value': 'Empfang', 'selected': false, 'offset': null},
+      {
+        'key': 'poi3',
+        'value': 'Information',
+        'selected': false,
+        'offset': null
+      },
+      {'key': 'poi4', 'value': 'Atrium', 'selected': false, 'offset': null},
+      {'key': 'poi5', 'value': 'Hörsaal', 'selected': false, 'offset': null}
     ]
   };
 });
 
-final StateProvider<bool> switchStateProvider = StateProvider<bool>((ref) {
+final switchStateProvider = StateProvider<bool>((ref) {
   return false;
+});
+
+final locationProvider = StateProvider<Map<String, dynamic>>((ref) {
+  return <String, dynamic>{
+    'location1': {'selected': false, 'offset': Offset(0, 0)},
+    'location2': {'selected': false, 'offset': Offset(0, 0)}
+  };
 });

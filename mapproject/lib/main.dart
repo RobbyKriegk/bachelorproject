@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mapproject/image_demo/choose_location_button.dart';
 
 import 'image_demo/imagedemo.dart';
 
@@ -45,6 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Stack(children: <Widget>[demo]),
             ElevatedButton(
@@ -54,6 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   });
                 },
                 child: const Text('ImageDemo')),
+            const ChooseLocationButton()
           ],
         ),
       ),
