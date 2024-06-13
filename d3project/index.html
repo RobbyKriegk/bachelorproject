@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph-Visualisierung</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .node { stroke: #fff; stroke-width: 1.5px; }
+        .link { stroke: #999; stroke-opacity: 0.6; }
+    </style>
+</head>
+<body>
+    <form id="color-form">
+        <label for="color-select">Wählen Sie eine Farbe:</label>
+        <select id="color-select">
+            <option value="red">Rot</option>
+            <option value="blue">Blau</option>
+            <option value="green">Grün</option>
+            <option value="else" selected>keine Farbe gewählt</option>
+        </select>
+        <button type="submit">Farbe auswählen</button>
+    </form>
+    <form id="proxy-form">
+        <label for="proxy-select">Proxies aktivieren</label>
+        <button type="submit">Proxies aktivieren</button>
+        <button type="reset">Proxies deaktivieren</button>
+    </form>
+    <form id="audio-form">
+        <label for="audio-select">Audio aktivieren</label>
+        <button type="submit">Audio aktivieren</button>
+        <button type="reset">Audio deaktivieren</button>
+    </form>
+    <form id="vibro-form">
+        <label for="vibro-select">Vibro aktivieren</label>
+        <button type="submit">Vibro aktivieren</button>
+        <button type="reset">Vibro deaktivieren</button>
+    </form>
+    <h3>Graph-Visualisierung mit D3.js</h3>
+    <div id="graph"></div>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="app.js"></script>
+    <script src="proxyfunc.js"></script>
+    <script src="audiofunc.js"></script>
+</body>
+</html>
