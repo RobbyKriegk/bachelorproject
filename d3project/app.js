@@ -3,6 +3,9 @@ const width = 300;
 const height = 600;
 
 var nodeColor = "null";
+var nodeNumber = 0;
+var audioToggle = false;
+var vibroToggle = false;
 
 const svg = d3.select("#graph").append("svg")
     .attr("width", width)
@@ -27,35 +30,37 @@ const svg = d3.select("#graph").append("svg")
     svg.attr("clip-path", "url(#clip)");
 // Beispieldaten
 const nodes = [
-    { id: 1, name: "Knoten 1", color: "red"},
-    { id: 2, name: "Knoten 2", color: "blue"},
-    { id: 3, name: "Knoten 3", color: "green"},
-    { id: 4, name: "Knoten 4", color: "red" },
-    { id: 5, name: "Knoten 5", color: "blue"},
-    { id: 6, name: "Knoten 6", color: "green"},
-    { id: 7, name: "Knoten 7", color: "red"},
-    { id: 8, name: "Knoten 8", color: "blue"},
-    { id: 9, name: "Knoten 9", color: "green"},
-    { id: 10, name: "Knoten 10", color: "red"},
-    { id: 11, name: "Knoten 11", color: "blue"},
-    { id: 12, name: "Knoten 12", color: "green"},
-    { id: 13, name: "Knoten 13", color: "red"},
-    { id: 14, name: "Knoten 14", color: "blue"},
-    { id: 15, name: "Knoten 15", color: "green"},
-    { id: 16, name: "Knoten 16", color: "red"},
-    { id: 17, name: "Knoten 17", color: "blue"},
-    { id: 18, name: "Knoten 18", color: "green"},
-    { id: 19, name: "Knoten 19", color: "red"},
-    { id: 20, name: "Knoten 20", color: "blue"},
-    { id: 21, name: "Knoten 21", color: "green"},
-    { id: 22, name: "Knoten 22", color: "red"},
-    { id: 23, name: "Knoten 23", color: "blue"},
-    { id: 24, name: "Knoten 24", color: "green"},
-    { id: 25, name: "Knoten 25", color: "red"},
-    { id: 26, name: "Knoten 26", color: "blue"},
-    { id: 27, name: "Knoten 27", color: "green"},
-    { id: 28, name: "Knoten 28", color: "red"},
-    { id: 29, name: "Knoten 29", color: "blue"},
+    { id: 1, name: "Knoten 1", color: "green" },
+    { id: 2, name: "Knoten 2", color: "blue" },
+    { id: 3, name: "Knoten 3", color: "red" },
+    { id: 4, name: "Knoten 4", color: "green" },
+    { id: 5, name: "Knoten 5", color: "blue" },
+    { id: 6, name: "Knoten 6", color: "red" },
+    { id: 7, name: "Knoten 7", color: "green" },
+    { id: 8, name: "Knoten 8", color: "blue" },
+    { id: 9, name: "Knoten 9", color: "green" },
+    { id: 10, name: "Knoten 10", color: "red" },
+    { id: 11, name: "Knoten 11", color: "blue" },
+    { id: 12, name: "Knoten 12", color: "blue" },
+    { id: 13, name: "Knoten 13", color: "blue" },
+    { id: 14, name: "Knoten 14", color: "green" },
+    { id: 15, name: "Knoten 15", color: "blue" },
+    { id: 16, name: "Knoten 16", color: "green" },
+    { id: 17, name: "Knoten 17", color: "blue" },
+    { id: 18, name: "Knoten 18", color: "red" },
+    { id: 19, name: "Knoten 19", color: "blue" },
+    { id: 20, name: "Knoten 20", color: "blue" },
+    { id: 21, name: "Knoten 21", color: "green" },
+    { id: 22, name: "Knoten 22", color: "blue" },
+    { id: 23, name: "Knoten 23", color: "red" },
+    { id: 24, name: "Knoten 24", color: "green" },
+    { id: 25, name: "Knoten 25", color: "blue" },
+    { id: 26, name: "Knoten 26", color: "green" },
+    { id: 27, name: "Knoten 27", color: "blue" },
+    { id: 28, name: "Knoten 28", color: "green" },
+    { id: 29, name: "Knoten 29", color: "blue" },
+    { id: 30, name: "Knoten 30", color: "blue" }
+   
 ];
 
 const links = [
@@ -188,6 +193,7 @@ function chooseColor(color) {
     selectedNodes.classed("active", true);
     selectedNodes.style("stroke", "black");
     selectedNodes.style("stroke-width", 2);
+    nodeNumber = selectedNodes.size();
 }
 
 document.getElementById("color-form").addEventListener("submit", function(event) {
@@ -196,6 +202,8 @@ document.getElementById("color-form").addEventListener("submit", function(event)
     nodeColor = document.getElementById("color-select").value;
     resetNodes();
     chooseColor(nodeColor);
+    audioToggle ? playSound(nodeColor) : null;
+    vibroToggle ? vibrateBasedOnNodeCount(nodeNumber) : null;
 });
 
 document.getElementById("proxy-form").addEventListener("submit", function(event) {
@@ -219,8 +227,36 @@ document.getElementById("proxy-form").addEventListener("reset", function(event) 
 
 document.getElementById("audio-form").addEventListener("submit", function(event) {
     event.preventDefault();
-    playSound(nodeColor);
+    audioToggle = true;
+    //playSound(nodeColor);
 });
+
+document.getElementById("audio-form").addEventListener("reset", function(event) {
+    event.preventDefault();
+    audioToggle = false;
+}
+);
+
+document.getElementById("vibro-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    vibroToggle = true;
+
+   //const selectedNodes = d3.selectAll(".active").nodes(); 
+    
+    // selectedNodes.forEach(node => {
+    //     node.classList.add("vibrate");
+    //     setTimeout(() => node.classList.remove("vibrate"), 5000);
+        
+    // });
+
+    //vibrateBasedOnNodeCount(nodeNumber);
+});
+
+document.getElementById("vibro-form").addEventListener("reset", function(event) {
+    event.preventDefault();
+    vibroToggle = false;
+}
+);
 
 function isNodeVisible(node) {
     

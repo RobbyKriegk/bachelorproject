@@ -31,5 +31,5 @@ function playSound(color) {
     // Stoppen Sie den Oszillator nach einer halben Sekunde
     setTimeout(() => {
         oscillator.stop();
-    }, 500);
+    }, 2000);
 }
