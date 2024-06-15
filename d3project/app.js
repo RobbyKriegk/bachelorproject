@@ -1,6 +1,6 @@
 
-const width = 300;
-const height = 600;
+const width = 600;
+const height = 400;
 
 var nodeColor = "null";
 var nodeNumber = 0;
