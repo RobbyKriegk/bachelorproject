@@ -1,5 +1,6 @@
-function vibrateBasedOnNodeCount(nodeCount) {
+function vibrateBasedOnNodeCount(nodeCount, vibroMS) {
     let className;
+    vibroMS = vibroMS ? vibroMS : 2000;
 
     if (nodeCount <= 5) {
         className = 'lightVibrate';
@@ -12,6 +13,6 @@ function vibrateBasedOnNodeCount(nodeCount) {
     const selectedNodes = d3.selectAll(".active").nodes();
     selectedNodes.forEach(node => {
         node.classList.add(className);
-        setTimeout(() => node.classList.remove(className), 2000);
+        setTimeout(() => node.classList.remove(className), vibroMS);
     });
 }

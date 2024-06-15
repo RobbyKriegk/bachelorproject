@@ -1,6 +1,7 @@
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-function playSound(color) {
+function playSound(color, audioMS) {
+    audioMS = audioMS ? audioMS : 2000;
     const oscillator = audioCtx.createOscillator();
 
     switch(color) {
@@ -23,5 +24,5 @@ function playSound(color) {
     oscillator.start();
     setTimeout(() => {
         oscillator.stop();
-    }, 2000);
+    }, audioMS);
 }

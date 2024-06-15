@@ -6,6 +6,8 @@ var nodeColor = "null";
 var nodeNumber = 0;
 var audioToggle = false;
 var vibroToggle = false;
+var audioMS = null;
+var vibroMS = null;
 
 const svg = d3.select("#graph").append("svg")
     .attr("width", width)
@@ -200,8 +202,8 @@ document.getElementById("color-form").addEventListener("submit", function(event)
     nodeColor = document.getElementById("color-select").value;
     resetNodes();
     chooseColor(nodeColor);
-    audioToggle ? playSound(nodeColor) : null;
-    vibroToggle ? vibrateBasedOnNodeCount(nodeNumber) : null;
+    audioToggle ? playSound(nodeColor, audioMS) : null;
+    vibroToggle ? vibrateBasedOnNodeCount(nodeNumber, vibroMS) : null;
 });
 
 document.getElementById("proxy-form").addEventListener("submit", function(event) {
@@ -226,7 +228,7 @@ document.getElementById("proxy-form").addEventListener("reset", function(event) 
 document.getElementById("audio-form").addEventListener("submit", function(event) {
     event.preventDefault();
     audioToggle = true;
-    //playSound(nodeColor);
+    audioMS = document.getElementById("audio-input").value;
 });
 
 document.getElementById("audio-form").addEventListener("reset", function(event) {
@@ -235,9 +237,12 @@ document.getElementById("audio-form").addEventListener("reset", function(event) 
 }
 );
 
+
+
 document.getElementById("vibro-form").addEventListener("submit", function(event) {
     event.preventDefault();
     vibroToggle = true;
+    vibroMS = document.getElementById("vibro-input").value;
 });
 
 document.getElementById("vibro-form").addEventListener("reset", function(event) {
