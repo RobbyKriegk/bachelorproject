@@ -143,8 +143,6 @@ simulation
     .nodes(nodes)
     .on("tick", ticked);
 
-// simulation.force("link")
-//     .links(links);
 
 const zoom = d3.zoom()
     .scaleExtent([-10, 10])
@@ -240,16 +238,6 @@ document.getElementById("audio-form").addEventListener("reset", function(event) 
 document.getElementById("vibro-form").addEventListener("submit", function(event) {
     event.preventDefault();
     vibroToggle = true;
-
-   //const selectedNodes = d3.selectAll(".active").nodes(); 
-    
-    // selectedNodes.forEach(node => {
-    //     node.classList.add("vibrate");
-    //     setTimeout(() => node.classList.remove("vibrate"), 5000);
-        
-    // });
-
-    //vibrateBasedOnNodeCount(nodeNumber);
 });
 
 document.getElementById("vibro-form").addEventListener("reset", function(event) {

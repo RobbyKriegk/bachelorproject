@@ -1,10 +1,8 @@
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 function playSound(color) {
-    // Erstellen Sie einen OscillatorNode
     const oscillator = audioCtx.createOscillator();
 
-    // Setzen Sie die Frequenz des Oszillators basierend auf der ausgewählten Farbe
     switch(color) {
         case 'red':
             oscillator.frequency.value = 261.63; // C4
@@ -21,14 +19,8 @@ function playSound(color) {
         default:
             return;
     }
-
-    // Verbinden Sie den Oszillator mit dem Ausgang
     oscillator.connect(audioCtx.destination);
-
-    // Starten Sie den Oszillator
     oscillator.start();
-
-    // Stoppen Sie den Oszillator nach einer halben Sekunde
     setTimeout(() => {
         oscillator.stop();
     }, 2000);
