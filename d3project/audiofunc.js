@@ -8,10 +8,10 @@ function playSound(color, audioMS) {
         case 'red':
             oscillator.frequency.value = 261.63; // C4
             break;
-        case 'blue':
+        case 'green':
             oscillator.frequency.value = 293.66; // D4
             break;
-        case 'green':
+        case 'blue':
             oscillator.frequency.value = 329.63; // E4
             break;
         case 'null':
