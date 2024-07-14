@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>d3.js Sound Navigation with dB Thresholds</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+<body>
+    <canvas id="myCanvas" width="600" height="400" style="border:1px solid #000000;"></canvas>
+
+    <script>
+        // Set up the canvas
+        const canvas = d3.select("#myCanvas");
+        const context = canvas.node().getContext("2d");
+
+        // Set up the Web Audio API
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+
+        oscillator.type = 'sine'; // You can change the type to 'square', 'sawtooth', 'triangle' etc.
+        oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // Set frequency to 440 Hz (A4)
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        oscillator.start();
+
+        // Initialize gain value
+        gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+
+        // Function to convert dB to linear gain
+        function dBToLinear(dB) {
+            return Math.pow(10, dB / 20);
+        }
+
+        // Define threshold dB levels and their corresponding gain values
+        const thresholds = [
+            { threshold: 100, dB: -10 },
+            { threshold: 200, dB: -4 },
+            { threshold: 300, dB: 2 },
+            { threshold: 400, dB: 8 },
+            { threshold: 500, dB: 14 }
+        ];
+
+        // Function to update the gain based on mouse position
+        function updateSound(y) {
+            // Find the appropriate dB level based on y position and convert to linear gain
+            let gainValue = 0;
+            for (let i = 0; i < thresholds.length; i++) {
+                if (y <= thresholds[i].threshold) {
+                    gainValue = dBToLinear(thresholds[i].dB);
+                    break;
+                }
+            }
+
+            gainNode.gain.setValueAtTime(gainValue, audioContext.currentTime);
+        }
+
+        // Add mousemove event listener to the canvas
+        canvas.on("mousemove", function(event) {
+            const [x, y] = d3.pointer(event);
+            updateSound(y);
+        });
+
+        // Add mouseout event listener to stop the sound when the mouse leaves the canvas
+        canvas.on("mouseout", function() {
+            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+        });
+
+        // Optionally, add a mouseover event listener to start the sound when the mouse enters the canvas
+        canvas.on("mouseover", function(event) {
+            const [x, y] = d3.pointer(event);
+            updateSound(y);
+        });
+
+    </script>
+</body>
+</html>

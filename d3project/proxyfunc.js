@@ -47,7 +47,7 @@ function createProxies(nodeColor) {
     updateGraph();
 }
 
-// Hilfsfunktion, um den Graphen zu aktualisieren
+
 function updateGraph() {
     // Knoten aktualisieren
     const node = container.select(".nodes").selectAll("circle").data(nodes);
